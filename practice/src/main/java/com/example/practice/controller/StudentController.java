@@ -20,7 +20,7 @@ public class StudentController {
     StudentRepository studentRepository;
 
 
-    @GetMapping("/getAllStudents")
+    @GetMapping("/students")
     public ResponseEntity<List<Student>> getAllStudents() {
         try {
             List<Student> studentList = new ArrayList<>();
@@ -36,7 +36,7 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/getStudentById/{id}")
+    @GetMapping("/students/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
         Optional<Student> studentObj = studentRepository.findById(id);
         if (studentObj.isPresent()) {
@@ -46,7 +46,7 @@ public class StudentController {
         }
     }
 
-    @PostMapping("/addStudent")
+    @PostMapping("/student")
     public ResponseEntity<Student> addStudent(@RequestBody Student student) {
         try {
             Student studentObj = studentRepository.save(student);
