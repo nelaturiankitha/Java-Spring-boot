@@ -2,28 +2,22 @@ package com.example.practice.controller;
 
 import com.example.practice.model.Student;
 import com.example.practice.repo.StudentRepository;
-import com.example.practice.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+
 public class StudentController {
 
-    private final StudentService studentService;
-    private final StudentRepository studentRepository;
-
     @Autowired
-    public StudentController(StudentService studentService, StudentRepository studentRepository) {
-        this.studentService = studentService;
-        this.studentRepository = studentRepository;
-    }
+    StudentRepository studentRepository;
 
 
     @GetMapping("/students")
@@ -52,13 +46,6 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/student/{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable Integer id){
-        Optional<Student> studentOptional = studentService.getUser(id);
-        return studentOptional.map(student -> new ResponseEntity<>(student, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
     @PostMapping("/student")
     public ResponseEntity<Student> addStudent(@RequestBody Student student) {
         try {
@@ -68,4 +55,7 @@ public class StudentController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+
 }
